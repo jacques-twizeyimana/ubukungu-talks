@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,700;1,6..72,400;1,6..72,500&family=IBM+Plex+Sans+Condensed:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F3EEE4;color:#16140F;font-family:'Newsreader',Georgia,serif;-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+a{color:#16140F;text-decoration-color:#B8321F;text-underline-offset:3px}
+a:hover{color:#B8321F}
+input,textarea,select,button{font:inherit;color:inherit}
+</style>
+</helmet>
+
+<div style="min-height:100vh">
+
+<sc-if value="{{ isSite }}" hint-placeholder-val="{{ true }}">
+<div style="max-width:1320px;margin:0 auto;padding:0 clamp(16px,4vw,48px)">
+
+  <header style="padding-top:16px">
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;font:500 12px/1 'IBM Plex Sans Condensed',sans-serif;letter-spacing:.06em;text-transform:uppercase;color:#5B554A;padding-bottom:12px">
+      <span>Wednesday, 30 September 2026 · Kigali · Issue No. 142</span>
+      <div style="display:flex;gap:18px;align-items:center">
+        <span onClick="{{ goIndex }}" style="cursor:pointer;color:#16140F" style-hover="color:#B8321F">Essentials Index <span style="color:#B8321F">{{ idx.value }} {{ idx.chg12 }}</span></span>
+        <span style="cursor:pointer" style-hover="color:#16140F">Newsletter</span>
+        <span style="background:#16140F;color:#F3EEE4;padding:8px 12px;cursor:pointer" style-hover="background:#B8321F">Buy us a coffee</span>
+      </div>
+    </div>
+    <div style="border-top:1px solid #16140F;border-bottom:1px solid #16140F;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:20px;padding:20px 0 16px">
+      <div style="font:italic 400 15px/1.35 'Newsreader',serif;color:#5B554A;max-width:220px">“The economy, as it's lived — not as it's reported.”</div>
+      <div onClick="{{ goHome }}" style="cursor:pointer;font:500 clamp(44px,8vw,104px)/.9 'Newsreader',serif;letter-spacing:-.035em;text-align:center;white-space:nowrap">Ubukungu Talks</div>
+      <div style="justify-self:end;text-align:right;font:500 12px/1.5 'IBM Plex Sans Condensed',sans-serif;letter-spacing:.05em;text-transform:uppercase;color:#5B554A">Independent · Reader-funded<br>Est. Kigali</div>
+    </div>
+    <nav style="display:flex;justify-content:center;flex-wrap:wrap;gap:6px 26px;padding:11px 0;border-bottom:3px double #16140F;font:600 14px/1 'IBM Plex Sans Condensed',sans-serif;letter-spacing:.04em;text-transform:uppercase">
+      <span onClick="{{ goHome }}" style="cursor:pointer;padding:4px 0" style-hover="color:#B8321F">Front page</span>
+      <sc-for list="{{ sections }}" as="s" hint-placeholder-count="6">
+        <span style="cursor:pointer;padding:4px 0" style-hover="color:#B8321F">{{ s }}</span>
+      </sc-for>
+      <span onClick="{{ goIndex }}" style="cursor:pointer;padding:4px 8px;background:#B8321F;color:#fff">Essentials Index</span>
+    </nav>
+  </header>
+
+  <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+  <main>
+    <section style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));gap:0;padding:28px 0 32px;border-bottom:1px solid #16140F">
+
+      <div style="display:flex;flex-direction:column;gap:22px;padding-right:24px;border-right:1px solid #D6CDBC">
+        <sc-for list="{{ leftCol }}" as="a" hint-placeholder-count="3">
+          <article onClick="{{ a.open }}" style="cursor:pointer;display:flex;flex-direction:column;gap:8px;padding-bottom:20px;border-bottom:1px solid #D6CDBC">
+            <span style="font:700 11px/1 'IBM Plex Sans Condensed',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#B8321F">{{ a.cat }}</span>
+            <h3 style="margin:0;font:500 24px/1.12 'Newsreader',serif;letter-spacing:-.01em;text-wrap:balance" style-hover="color:#B8321F">{{ a.title }}</h3>
+            <p style="margin:0;font:400 16px/1.45 'Newsreader',serif;color:#3A362E;text-wrap:pretty">{{ a.dek }}</p>
+            <span style="font:500 12px/1 'IBM Plex Sans Condensed',sans-serif;color:#5B554A">{{ a.read }} read</span>
+          </article>
+        </sc-for>
+      </div>
+
+      <article onClick="{{ lead.open }}" style="cursor:pointer;grid-column:span 2;display:flex;flex-direction:column;gap:14px;padding:0 24px;border-right:1px solid #D6CDBC;min-width:0">
+        <div style="aspect-ratio:3/2;background:repeating-linear-gradient(135deg,#E4DCCB 0 10px,#DCD2BE 10px 20px);display:flex;align-items:flex-end;padding:12px;font:500 12px/1.3 'IBM Plex Mono',monospace;color:#5B554A">Photo · A restored Kigali wetland where farm plots once stood</div>
+        <div style="font:400 12px/1.3 'IBM Plex Sans Condensed',sans-serif;color:#5B554A;margin-top:-6px">Caption and credit go here.</div>
+        <span style="font:700 12px/1 'IBM Plex Sans Condensed',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#B8321F">{{ lead.cat }}</span>
+        <h1 style="margin:0;font:500 clamp(34px,4vw,54px)/1.02 'Newsreader',serif;letter-spacing:-.02em;text-wrap:balance;text-align:center" style-hover="color:#B8321F">{{ lead.title }}</h1>
+        <p style="margin:0;font:italic 400 20px/1.4 'Newsreader',serif;color:#3A362E;text-wrap:pretty;text-align:center">{{ lead.dek }}</p>
+        <div style="font:600 12px/1 'IBM Plex Sans Condensed',sans-serif;color:#5B554A;letter-spacing:.06em;text-transform:uppercase;text-align:center">By {{ lead.author }} · {{ lead.date }}</div>
+        <div style="columns:2 220px;column-gap:24px;column-rule:1px solid #D6CDBC;font:400 17px/1.55 'Newsreader',serif;text-wrap:pretty">
+          <p style="margin:0 0 12px">{{ lead.p1 }}</p>
+          <p style="margin:0">{{ lead.p2 }} <span style="font:600 13px/1 'IBM Plex Sans Condensed',sans-serif;text-transform:uppercase;letter-spacing:.05em;color:#B8321F">Continue →</span></p>
+        </div>
+      </article>
+
+      <aside style="display:flex;flex-direction:column;gap:20px;padding-left:24px">
+        <div onClick="{{ goIndex }}" style="cursor:pointer;border:1px solid #16140F;padding:14px 16px;display:flex;flex-direction:column;gap:10px;background:#FBF8F2" style-hover="background:#F8F2E6">
+          <div style="display:flex;justify-content:space-between;font:700 11px/1 'IBM Plex Sans Condensed',sans-serif;letter-spacing:.1em;text-transform:uppercase"><span>Essentials Index</span><span style="color:#5B554A">Sep 2026</span></div>
+          <div style="display:flex;align-items:baseline;gap:10px"><span style="font:500 44px/1 'Newsreader',serif;letter-spacing:-.02em">{{ idx.value }}</span><span style="font:500 14px/1 'IBM Plex Mono',monospace;color:#B8321F">{{ idx.chg12 }} y/y</span></div>
+          <svg viewBox="0 0 100 30" preserveAspectRatio="none" style="width:100%;height:44px;display:block"><polyline points="{{ idx.spark }}" fill="none" stroke="#B8321F" style="stroke-width:2;vector-effect:non-scaling-stroke"></polyline></svg>
+          <div style="font:400 14px/1.35 'Newsreader',serif;color:#3A362E">What 13 essentials cost a Kigali household, against a year ago.</div>
+          <div style="font:600 12px/1 'IBM Plex Sans Condensed',sans-serif;letter-spacing:.06em;text-transform:uppercase;color:#B8321F">Open the index →</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:0">
+          <div style="font:700 12px/1 'IBM Plex Sans Condensed',sans-serif;letter-spacing:.1em;text-transform:uppercase;padding-bottom:10px;border-bottom:2px solid #16140F">Opinion</div>
+          <sc-for list="{{ opinion }}" as="a" hint-placeholder-count="3">
+            <div onClick="{{ a.open }}" style="cursor:pointer;display:flex;flex-direction:column;gap:6px;padding:14px 0;border-bottom:1px solid #D6CDBC">
+              <span style="font:italic 500 19px/1.2 'Newsreader',serif" style-hover="color:#B8321F">{{ a.title }}</span>
+              <span style="font:600 11px/1 'IBM Plex Sans Condensed',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#5B554A">{{ a.author }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </aside>
+    </section>
+
+    <section style="padding:26px 0 30px;border-bottom:1px solid #16140F">
+      <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:18px">
+        <h2 style="margin:0;font:500 30px/1 'Newsreader',serif;letter-spacing:-.01em">Cost of living</h2>
+        <span style="flex:1;height:1px;background:#16140F"></span>
+        <span style="font:600 12px/1 'IBM Plex Sans Condensed',sans-serif;text-transform:uppercase;letter-spacing:.06em;cursor:pointer" style-hover="color:#B8321F">More →</span>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:24px">
+        <sc-for list="{{ colRow }}" as="a" hint-placeholder-count="4">
+          <article onClick="{{ a.open }}" style="cursor:pointer;display:flex;flex-direction:column;gap:10px">
+            <div style="aspect-ratio:4/3;background:repeating-linear-gradient(135deg,#E4DCCB 0 8px,#DCD2BE 8px 16px)"></div>
+            <h3 style="margin:0;font:500 21px/1.15 'Newsreader',serif;text-wrap:balance" style-hover="color:#B8321F">{{ a.title }}</h3>
+            <p style="margin:0;font:400 15px/1.45 'Newsreader',serif;color:#3A362E;text-wrap:pretty">{{ a.dek }}</p>
+          </article>
+        </sc-for>
+      </div>
+    </section>
+
+    <section style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:0;padding:26px 0 30px;border-bottom:1px solid #16140F">
+      <div style="padding-right:28px;border-right:1px solid #D6CDBC;display:flex;flex-direction:column;gap:14px">
+        <div style="display:flex;align-items:baseline;gap:14px"><h2 style="margin:0;font:500 30px/1 'Newsreader',serif">Jobs &amp; youth</h2><span style="flex:1;height:1px;background:#16140F"></span></div>
+        <sc-for list="{{ jobs }}" as="a" hint-placeholder-count="3">
+          <article onClick="{{ a.open }}" style="cursor:pointer;display:grid;grid-template-columns:1fr 110px;gap:16px;padding-bottom:14px;border-bottom:1px solid #D6CDBC">
+            <div style="display:flex;flex-direction:column;gap:6px">
+              <h3 style="margin:0;font:500 20px/1.18 'Newsreader',serif" style-hover="color:#B8321F">{{ a.title }}</h3>
+              <p style="margin:0;font:400 15px/1.4 'Newsreader',serif;color:#3A362E">{{ a.dek }}</p>
+            </div>
+            <div style="aspect-ratio:1;background:repeating-linear-gradient(135deg,#E4DCCB 0 8px,#DCD2BE 8px 16px)"></div>
+          </article>
+        </sc-for>
+      </div>
+      <div style="padding-left:28px;display:flex;flex-direction:column;gap:14px">
+        <div style="display:flex;align-items:baseline;gap:14px"><h2 style="margin:0;font:500 30px/1 'Newsreader',serif">Countryside</h2><span style="flex:1;height:1px;background:#16140F"></span></div>
+        <sc-for list="{{ rural }}" as="a" hint-placeholder-count="3">
+          <article onClick="{{ a.open }}" style="cursor:pointer;display:grid;grid-template-columns:1fr 110px;gap:16px;padding-bottom:14px;border-bottom:1px solid #D6CDBC">
+            <div style="display:flex;flex-direction:column;gap:6px">
+              <h3 style="margin:0;font:500 20px/1.18 'Newsreader',serif" style-hover="color:#B8321F">{{ a.title }}</h3>
+              <p style="margin:0;font:400 15px/1.4 'Newsreader',serif;color:#3A362E">{{ a.dek }}</p>
+            </div>
+            <div style="aspect-ratio:1;background:repeating-linear-gradient(135deg,#E4DCCB 0 8px,#DCD2BE 8px 16px)"></div>
+          </article>
+        </sc-for>
+      </div>
+    </section>
+
+    <section style="margin:36px 0;background:#16140F;color:#F3EEE4;padding:clamp(28px,5vw,52px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:32px;align-items:center">
+      <div>
+        <h2 style="margin:0 0 12px;font:500 clamp(28px,3.4vw,42px)/1.05 'Newsreader',serif;letter-spacing:-.01em">No paywall. No sponsors in the newsroom.</h2>
+        <p style="margin:0;font:400 18px/1.5 'Newsreader',serif;color:#CFC7B8">Funded by readers. The price of a coffee keeps one more cost-of-living story in print.</p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <div style="display:flex;border:1px solid #F3EEE4">
+          <input placeholder="Your email for the Friday brief" style="flex:1;min-width:0;background:transparent;border:0;padding:14px 16px;color:#F3EEE4;outline:none;font:400 16px/1 'IBM Plex Sans Condensed',sans-serif">
+          <button style="border:0;background:#F3EEE4;color:#16140F;padding:0 18px;font:600 14px/1 'IBM Plex Sans Condensed',sans-serif;text-transform:uppercase;letter-spacing:.06em;cursor:pointer">Subscribe</button>
+        </div>
+        <button style="border:0;background:#B8321F;color:#fff;padding:15px 18px;font:600 14px/1 'IBM Plex Sans Condensed',sans-serif;text-transform:uppercase;letter-spacing:.06em;cursor:pointer" style-hover="background:#9C2716">Support on Buy Me a Coffee</button>
+      </div>
+    </section>
+  </main>
+  </sc-if>
+
+  <sc-if value="{{ isIndex }}" hint-placeholder-val="{{ false }}">
+  <main style="padding:30px 0 20px">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:32px;align-items:end;padding-bottom:26px;border-bottom:1px solid #16140F">
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <span style="font:700 12px/1 'IBM Plex Sans Condensed',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#B8321F">The Ubukungu Essentials Index · Updated 30 Sep 2026</span>
+        <h1 style="margin:0;font:500 clamp(40px,5.5vw,72px)/.98 'Newsreader',serif;letter-spacing:-.03em;text-wrap:balance">What life costs in Kigali, item by item.</h1>
+        <p style="margin:0;font:400 19px/1.45 'Newsreader',serif;color:#3A362E;max-width:560px;text-wrap:pretty">Thirteen essentials, priced every month at city markets, stations and clinics. Ranked by how much each has risen since September 2025.</p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div style="display:flex;align-items:baseline;gap:14px;flex-wrap:wrap">
+          <span style="font:500 88px/.9 'Newsreader',serif;letter-spacing:-.03em">{{ idx.value }}</span>
+          <div style="display:flex;flex-direction:column;gap:6px;font:500 14px/1 'IBM Plex Mono',monospace">
+            <span style="color:#B8321F">{{ idx.chg12 }} 12 mo</span>
+            <span style="color:#B8321F">{{ idx.chg1 }} 1 mo</span>
+          </div>
+        </div>
+        <svg viewBox="0 0 100 30" preserveAspectRatio="none" style="width:100%;height:110px;display:block;border-bottom:1px solid #16140F;background:linear-gradient(#D6CDBC,#D6CDBC) 0 50%/100% 1px no-repeat"><polyline points="{{ idx.spark }}" fill="none" stroke="#B8321F" style="stroke-width:2.5;vector-effect:non-scaling-stroke"></polyline></svg>
+        <div style="display:flex;justify-content:space-between;font:400 12px/1 'IBM Plex Mono',monospace;color:#5B554A"><span>Sep 2025 = 100</span><span>Sep 2026</span></div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));border-bottom:1px solid #16140F">
+      <sc-for list="{{ catSummary }}" as="c" hint-placeholder-count="5">
+        <div onClick="{{ c.go }}" style="cursor:pointer;padding:14px 16px;border-right:1px solid #D6CDBC;display:flex;flex-direction:column;gap:6px;background:{{ c.bg }}" style-hover="background:#EAE3D5">
+          <span style="font:700 11px/1 'IBM Plex Sans Condensed',sans-serif;letter-spacing:.1em;text-transform:uppercase">{{ c.label }}</span>
+          <span style="font:500 24px/1 'Newsreader',serif;color:#B8321F">{{ c.chg }}</span>
+          <span style="font:400 12px/1 'IBM Plex Mono',monospace;color:#5B554A">{{ c.n }} items</span>
+        </div>
+      </sc-for>
+    </div>
+
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;padding:16px 0 10px">
+      <span style="font:500 14px/1.3 'IBM Plex Sans Condensed',sans-serif;color:#5B554A">Showing {{ rowCount }} · {{ catLabel }} · click a row for its full history</span>
+      <div style="display:flex;gap:0;border:1px solid #16140F;font:600 12px/1 'IBM Plex Sans Condensed',sans-serif;text-transform:uppercase;letter-spacing:.05em">
+        <sc-for list="{{ sorts }}" as="o" hint-placeholder-count="3">
+          <span onClick="{{ o.go }}" style="cursor:pointer;padding:9px 12px;background:{{ o.bg }};color:{{ o.fg }}">{{ o.label }}</span>
+        </sc-for>
+      </div>
+    </div>
+
+    <div style="overflow-x:auto;border-top:2px solid #16140F">
+      <div style="min-width:760px">
+        <div style="display:grid;grid-template-columns:48px 2.2fr 1fr 1fr .8fr .8fr 1.4fr;gap:14px;padding:10px 8px;border-bottom:1px solid #16140F;font:600 11px/1 'IBM Plex Sans Condensed',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#5B554A">
+          <span>Rank</span><span>Item</span><span>Category</span><span style="text-align:right">Price (RWF)</span><span style="text-align:right">1 mo</span><span style="text-align:right">12 mo</span><span>12-month trend</span>
+        </div>
+        <sc-for list="{{ rows }}" as="b" hint-placeholder-count="10">
+          <div style="border-bottom:1px solid #D6CDBC">
+            <div onClick="{{ b.toggle }}" style="cursor:pointer;display:grid;grid-template-columns:48px 2.2fr 1fr 1fr .8fr .8fr 1.4fr;gap:14px;align-items:center;padding:12px 8px" style-hover="background:#EAE3D5">
+              <span style="font:500 26px/1 'Newsreader',serif;color:#5B554A">{{ b.rank }}</span>
+              <span style="font:500 20px/1.15 'Newsreader',serif">{{ b.name }} <span style="font:400 14px/1 'IBM Plex Sans Condensed',sans-serif;color:#5B554A">per {{ b.unit }}</span></span>
+              <span style="font:500 13px/1 'IBM Plex Sans Condensed',sans-serif;text-transform:uppercase;letter-spacing:.05em;color:#5B554A">{{ b.cat }}</span>
+              <span style="text-align:right;font:500 16px/1 'IBM Plex Mono',monospace">{{ b.nowF }}</span>
+              <span style="text-align:right;font:500 14px/1 'IBM Plex Mono',monospace;color:{{ b.c1Color }}">{{ b.chg1 }}</span>
+              <span style="text-align:right;font:500 14px/1 'IBM Plex Mono',monospace;color:{{ b.chgColor }}">{{ b.chg }}</span>
+              <svg viewBox="0 0 100 30" preserveAspectRatio="none" style="width:100%;height:30px;display:block"><polyline points="{{ b.spark }}" fill="none" stroke="{{ b.chgColor }}" style="stroke-width:1.75;vector-effect:non-scaling-stroke"></polyline></svg>
+            </div>
+            <sc-if value="{{ b.isOpen }}" hint-placeholder-val="{{ false }}">
+              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:28px;padding:8px 8px 24px 70px;background:#FBF8F2">
+                <div style="display:flex;flex-direction:column;gap:8px;padding-top:12px">
+                  <svg viewBox="0 0 100 30" preserveAspectRatio="none" style="width:100%;height:120px;display:block;border-bottom:1px solid #16140F"><polyline points="{{ b.spark }}" fill="none" stroke="{{ b.chgColor }}" style="stroke-width:2.5;vector-effect:non-scaling-stroke"></polyline></svg>
+                  <div style="display:flex;justify-content:space-between;font:400 12px/1 'IBM Plex Mono',monospace;color:#5B554A"><span>Sep 2025 · {{ b.thenF }}</span><span>Sep 2026 · {{ b.nowF }}</span></div>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:12px;padding-top:12px">
+                  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px">
+                    <div style="display:flex;flex-direction:column;gap:5px"><span style="font:600 11px/1 'IBM Plex Sans Condensed',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#5B554A">12-mo low</span><span style="font:500 18px/1 'IBM Plex Mono',monospace">{{ b.minF }}</span></div>
+                    <div style="display:flex;flex-direction:column;gap:5px"><span style="font:600 11px/1 'IBM Plex Sans Condensed',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#5B554A">12-mo high</span><span style="font:500 18px/1 'IBM Plex Mono',monospace">{{ b.maxF }}</span></div>
+                    <div style="display:flex;flex-direction:column;gap:5px"><span style="font:600 11px/1 'IBM Plex Sans Condensed',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#5B554A">Weight</span><span style="font:500 18px/1 'IBM Plex Mono',monospace">{{ b.weightF }}</span></div>
+                  </div>
+                  <p style="margin:0;font:400 17px/1.45 'Newsreader',serif;color:#3A362E;text-wrap:pretty">{{ b.note }}</p>
+                  <span style="font:400 12px/1.3 'IBM Plex Mono',monospace;color:#5B554A">Priced at: {{ b.source }}</span>
+                </div>
+              </div>
+            </sc-if>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:32px;padding:30px 0 10px">
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <span style="font:700 12px/1 'IBM Plex Sans Condensed',sans-serif;letter-spacing:.1em;text-transform:uppercase">Methodology</span>
+        <p style="margin:0;font:400 15px/1.5 'Newsreader',serif;color:#3A362E">Prices are the median of three quotes collected in the last week of each month. The index weights each item by its share of a typical Kigali young-adult household budget. Figures shown here are illustrative until the data desk publishes the first official series.</p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:0">
+        <span style="font:700 12px/1 'IBM Plex Sans Condensed',sans-serif;letter-spacing:.1em;text-transform:uppercase;padding-bottom:6px">Reporting from the index</span>
+        <sc-for list="{{ indexStories }}" as="a" hint-placeholder-count="3">
+          <span onClick="{{ a.open }}" style="cursor:pointer;padding:10px 0;border-bottom:1px solid #D6CDBC;font:500 18px/1.25 'Newsreader',serif" style-hover="color:#B8321F">{{ a.title }}</span>
+        </sc-for>
+      </div>
+    </div>
+  </main>
+  </sc-if>
+
+  <sc-if value="{{ isArticle }}" hint-placeholder-val="{{ false }}">
+  <main style="padding:36px 0 20px">
+    <div style="max-width:780px;margin:0 auto;display:flex;flex-direction:column;gap:18px;text-align:center;align-items:center">
+      <div style="font:700 12px/1 'IBM Plex Sans Condensed',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#B8321F">{{ article.cat }}</div>
+      <h1 style="margin:0;font:500 clamp(38px,5.5vw,66px)/1.02 'Newsreader',serif;letter-spacing:-.025em;text-wrap:balance">{{ article.title }}</h1>
+      <p style="margin:0;font:italic 400 23px/1.4 'Newsreader',serif;color:#3A362E;text-wrap:pretty">{{ article.dek }}</p>
+      <div style="align-self:stretch;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;padding:12px 0;border-top:1px solid #16140F;border-bottom:1px solid #16140F;font:600 12px/1 'IBM Plex Sans Condensed',sans-serif;color:#5B554A;letter-spacing:.06em;text-transform:uppercase">
+        <span>By {{ article.author }} · {{ article.date }}</span>
+        <span>{{ article.read }} read · Share</span>
+      </div>
+    </div>
+    <div style="max-width:1040px;margin:30px auto 0;aspect-ratio:21/9;background:repeating-linear-gradient(135deg,#E4DCCB 0 10px,#DCD2BE 10px 20px);display:flex;align-items:flex-end;padding:14px;font:500 12px/1.3 'IBM Plex Mono',monospace;color:#5B554A">Lead photograph</div>
+    <div style="max-width:680px;margin:34px auto 0;display:flex;flex-direction:column;gap:22px">
+      <sc-for list="{{ article.body }}" as="p" hint-placeholder-count="4">
+        <p style="margin:0;font:400 20px/1.62 'Newsreader',serif;text-wrap:pretty">{{ p }}</p>
+      </sc-for>
+      <blockquote style="margin:10px 0;padding:22px 0;border-top:3px double #16140F;border-bottom:1px solid #16140F;font:500 30px/1.2 'Newsreader',serif;letter-spacing:-.01em;color:#B8321F">“A growth figure is an average. A market price is something you pay alone.”</blockquote>
+      <div onClick="{{ goIndex }}" style="cursor:pointer;border:1px solid #16140F;background:#FBF8F2;padding:18px 20px;display:flex;flex-direction:column;gap:6px">
+        <div style="display:flex;justify-content:space-between;font:700 11px/1 'IBM Plex Sans Condensed',sans-serif;letter-spacing:.1em;text-transform:uppercase"><span style="color:#B8321F">From the Essentials Index</span><span>Full index →</span></div>
+        <sc-for list="{{ topRisers }}" as="b" hint-placeholder-count="3">
+          <div style="display:grid;grid-template-columns:1fr 90px auto;gap:14px;align-items:center;padding:8px 0;border-bottom:1px solid #D6CDBC">
+            <span style="font:500 18px/1.2 'Newsreader',serif">{{ b.name }} <span style="font-size:14px;color:#5B554A">/ {{ b.unit }}</span></span>
+            <svg viewBox="0 0 100 30" preserveAspectRatio="none" style="width:90px;height:22px;display:block"><polyline points="{{ b.spark }}" fill="none" stroke="#B8321F" style="stroke-width:1.5;vector-effect:non-scaling-stroke"></polyline></svg>
+            <span style="font:500 14px/1 'IBM Plex Mono',monospace;color:#B8321F">{{ b.chg }}</span>
+          </div>
+        </sc-for>
+      </div>
+      <div style="margin-top:10px;padding:24px;border:1px solid #16140F;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap">
+        <span style="font:500 20px/1.3 'Newsreader',serif;max-width:420px">Found this useful? Stories like this are paid for by readers.</span>
+        <button style="border:0;background:#B8321F;color:#fff;padding:14px 18px;font:600 14px/1 'IBM Plex Sans Condensed',sans-serif;text-transform:uppercase;letter-spacing:.06em;cursor:pointer" style-hover="background:#9C2716">Buy us a coffee</button>
+      </div>
+    </div>
+    <section style="margin-top:50px;border-top:3px double #16140F;padding-top:20px">
+      <div style="font:700 12px/1 'IBM Plex Sans Condensed',sans-serif;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px">Keep reading</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,280px),1fr));gap:0 32px">
+        <sc-for list="{{ related }}" as="a" hint-placeholder-count="3">
+          <div onClick="{{ a.open }}" style="cursor:pointer;display:flex;flex-direction:column;gap:8px;padding:14px 0">
+            <span style="font:700 11px/1 'IBM Plex Sans Condensed',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#B8321F">{{ a.cat }}</span>
+            <span style="font:500 22px/1.2 'Newsreader',serif" style-hover="color:#B8321F">{{ a.title }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+  </main>
+  </sc-if>
+
+  <footer style="border-top:1px solid #16140F;padding:26px 0 90px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;font:500 13px/1.4 'IBM Plex Sans Condensed',sans-serif;color:#5B554A">
+    <span style="font:500 24px/1 'Newsreader',serif;color:#16140F">Ubukungu Talks</span>
+    <span>Independent reporting on Rwanda's economy · Kigali · Reader-funded</span>
+  </footer>
+</div>
+</sc-if>
+
+<sc-if value="{{ isAdmin }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;min-height:100vh;font-family:'IBM Plex Sans Condensed',sans-serif;background:#F3EEE4">
+  <aside style="width:220px;flex:none;background:#16140F;color:#F3EEE4;padding:22px 14px;display:flex;flex-direction:column;gap:4px">
+    <div style="font:500 24px/1 'Newsreader',serif;padding:0 10px 4px">Ubukungu Talks</div>
+    <div style="font:500 11px/1 'IBM Plex Mono',monospace;color:#A69E8F;padding:0 10px 22px">Newsroom</div>
+    <sc-for list="{{ adminNav }}" as="n" hint-placeholder-count="4">
+      <div onClick="{{ n.go }}" style="cursor:pointer;padding:11px 10px;font:500 15px/1 'IBM Plex Sans Condensed',sans-serif;letter-spacing:.02em;background:{{ n.bg }};color:#F3EEE4" style-hover="background:#2A2720">{{ n.label }}</div>
+    </sc-for>
+    <div style="margin-top:auto;padding:14px 10px;border-top:1px solid #3A362E;font:400 13px/1.4 'IBM Plex Sans Condensed',sans-serif;color:#A69E8F">Signed in as<br><span style="color:#F3EEE4">Editor</span></div>
+  </aside>
+
+  <main style="flex:1;min-width:0;padding:28px clamp(18px,3vw,40px) 100px">
+    <sc-if value="{{ aDash }}" hint-placeholder-val="{{ true }}">
+      <div style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px;margin-bottom:24px">
+        <div>
+          <div style="font:500 12px/1 'IBM Plex Mono',monospace;color:#5B554A;margin-bottom:8px">SEPTEMBER 2026</div>
+          <h1 style="margin:0;font:500 40px/1 'Newsreader',serif;letter-spacing:-.01em">Good morning.</h1>
+        </div>
+        <button onClick="{{ newPost }}" style="border:0;background:#B8321F;color:#fff;padding:12px 16px;font:600 14px/1 'IBM Plex Sans Condensed',sans-serif;text-transform:uppercase;letter-spacing:.06em;cursor:pointer" style-hover="background:#9C2716">+ New story</button>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));border:1px solid #16140F;background:#FBF8F2">
+        <sc-for list="{{ kpis }}" as="k" hint-placeholder-count="4">
+          <div style="padding:18px 20px;border-right:1px solid #D6CDBC;display:flex;flex-direction:column;gap:10px">
+            <span style="font:600 11px/1 'IBM Plex Sans Condensed',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#5B554A">{{ k.label }}</span>
+            <span style="font:500 38px/1 'Newsreader',serif">{{ k.value }}</span>
+            <span style="font:500 12px/1 'IBM Plex Mono',monospace;color:#2F5D3A">{{ k.delta }}</span>
+          </div>
+        </sc-for>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:24px;margin-top:24px">
+        <div style="border:1px solid #16140F;background:#FBF8F2;padding:18px 20px">
+          <div style="font:700 12px/1 'IBM Plex Sans Condensed',sans-serif;letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px">Most read this month</div>
+          <sc-for list="{{ topRead }}" as="p" hint-placeholder-count="5">
+            <div onClick="{{ p.edit }}" style="cursor:pointer;display:grid;grid-template-columns:28px 1fr auto;gap:10px;align-items:baseline;padding:11px 0;border-top:1px solid #D6CDBC">
+              <span style="font:500 14px/1 'IBM Plex Mono',monospace;color:#B8321F">{{ p.rank }}</span>
+              <span style="font:500 17px/1.25 'Newsreader',serif" style-hover="color:#B8321F">{{ p.title }}</span>
+              <span style="font:500 13px/1 'IBM Plex Mono',monospace;color:#5B554A">{{ p.views }}</span>
+            </div>
+          </sc-for>
+        </div>
+        <div style="border:1px solid #16140F;background:#FBF8F2;padding:18px 20px;display:flex;flex-direction:column;gap:10px">
+          <div style="font:700 12px/1 'IBM Plex Sans Condensed',sans-serif;letter-spacing:.08em;text-transform:uppercase">Needs attention</div>
+          <sc-for list="{{ todo }}" as="p" hint-placeholder-count="2">
+            <div onClick="{{ p.edit }}" style="cursor:pointer;display:flex;justify-content:space-between;gap:12px;align-items:center;padding:11px 0;border-top:1px solid #D6CDBC">
+              <span style="font:500 17px/1.25 'Newsreader',serif">{{ p.title }}</span>
+              <span style="flex:none;padding:5px 8px;font:600 11px/1 'IBM Plex Sans Condensed',sans-serif;text-transform:uppercase;letter-spacing:.06em;background:{{ p.pillBg }};color:{{ p.pillFg }}">{{ p.status }}</span>
+            </div>
+          </sc-for>
+          <div onClick="{{ goPrices }}" style="cursor:pointer;margin-top:6px;padding:12px 14px;background:#F3D9CF;color:#7A1F12;font:500 14px/1.35 'IBM Plex Sans Condensed',sans-serif">Essentials Index: September prices due. 13 items to update before Friday →</div>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ aPosts }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px;margin-bottom:20px">
+        <h1 style="margin:0;font:500 40px/1 'Newsreader',serif">Stories</h1>
+        <button onClick="{{ newPost }}" style="border:0;background:#B8321F;color:#fff;padding:12px 16px;font:600 14px/1 'IBM Plex Sans Condensed',sans-serif;text-transform:uppercase;letter-spacing:.06em;cursor:pointer" style-hover="background:#9C2716">+ New story</button>
+      </div>
+      <div style="display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap">
+        <sc-for list="{{ filters }}" as="f" hint-placeholder-count="4">
+          <span onClick="{{ f.go }}" style="cursor:pointer;padding:8px 12px;border:1px solid #16140F;font:600 13px/1 'IBM Plex Sans Condensed',sans-serif;letter-spacing:.04em;background:{{ f.bg }};color:{{ f.fg }}">{{ f.label }} · {{ f.n }}</span>
+        </sc-for>
+      </div>
+      <div style="border:1px solid #16140F;background:#FBF8F2;overflow-x:auto">
+        <div style="min-width:680px">
+          <div style="display:grid;grid-template-columns:3fr 1fr 1fr .8fr .8fr;gap:14px;padding:12px 18px;border-bottom:1px solid #16140F;font:600 11px/1 'IBM Plex Sans Condensed',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#5B554A">
+            <span>Headline</span><span>Section</span><span>Date</span><span>Status</span><span style="text-align:right">Views</span>
+          </div>
+          <sc-for list="{{ postRows }}" as="p" hint-placeholder-count="6">
+            <div onClick="{{ p.edit }}" style="cursor:pointer;display:grid;grid-template-columns:3fr 1fr 1fr .8fr .8fr;gap:14px;align-items:center;padding:14px 18px;border-bottom:1px solid #D6CDBC" style-hover="background:#F3EEE4">
+              <span style="font:500 17px/1.25 'Newsreader',serif">{{ p.title }}</span>
+              <span style="font:500 14px/1 'IBM Plex Sans Condensed',sans-serif">{{ p.cat }}</span>
+              <span style="font:400 13px/1 'IBM Plex Mono',monospace;color:#5B554A">{{ p.date }}</span>
+              <span><span style="padding:5px 8px;font:600 11px/1 'IBM Plex Sans Condensed',sans-serif;text-transform:uppercase;letter-spacing:.06em;background:{{ p.pillBg }};color:{{ p.pillFg }}">{{ p.status }}</span></span>
+              <span style="text-align:right;font:500 13px/1 'IBM Plex Mono',monospace">{{ p.views }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ aEditor }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:20px">
+        <span onClick="{{ goPosts }}" style="cursor:pointer;font:600 13px/1 'IBM Plex Sans Condensed',sans-serif;text-transform:uppercase;letter-spacing:.06em;color:#5B554A" style-hover="color:#B8321F">← All stories</span>
+        <div style="display:flex;gap:8px;align-items:center">
+          <span style="font:400 13px/1 'IBM Plex Mono',monospace;color:#2F5D3A">{{ savedMsg }}</span>
+          <button onClick="{{ preview }}" style="border:1px solid #16140F;background:transparent;padding:11px 14px;font:600 13px/1 'IBM Plex Sans Condensed',sans-serif;text-transform:uppercase;letter-spacing:.06em;cursor:pointer">Preview</button>
+          <button onClick="{{ saveDraft }}" style="border:1px solid #16140F;background:#FBF8F2;padding:11px 14px;font:600 13px/1 'IBM Plex Sans Condensed',sans-serif;text-transform:uppercase;letter-spacing:.06em;cursor:pointer">Save draft</button>
+          <button onClick="{{ publish }}" style="border:0;background:#B8321F;color:#fff;padding:12px 16px;font:600 13px/1 'IBM Plex Sans Condensed',sans-serif;text-transform:uppercase;letter-spacing:.06em;cursor:pointer" style-hover="background:#9C2716">{{ publishLabel }}</button>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:24px;align-items:start">
+        <div style="grid-column:span 2;min-width:0;background:#FBF8F2;border:1px solid #16140F;padding:clamp(18px,3vw,36px);display:flex;flex-direction:column;gap:14px">
+          <input value="{{ draft.title }}" onChange="{{ setTitle }}" placeholder="Headline" style="border:0;background:transparent;outline:none;font:500 38px/1.1 'Newsreader',serif;letter-spacing:-.015em;padding:0">
+          <textarea value="{{ draft.dek }}" onChange="{{ setDek }}" placeholder="Standfirst — one or two sentences" rows="2" style="border:0;background:transparent;outline:none;resize:vertical;font:italic 400 20px/1.4 'Newsreader',serif;color:#3A362E;padding:0"></textarea>
+          <div style="height:1px;background:#16140F"></div>
+          <textarea value="{{ draft.bodyText }}" onChange="{{ setBody }}" placeholder="Write the story. Blank line between paragraphs." rows="16" style="border:0;background:transparent;outline:none;resize:vertical;font:400 18px/1.6 'Newsreader',serif;padding:0"></textarea>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:16px;background:#FBF8F2;border:1px solid #16140F;padding:18px 20px">
+          <div style="display:flex;flex-direction:column;gap:6px;font:600 11px/1 'IBM Plex Sans Condensed',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#5B554A">Status
+            <span style="align-self:flex-start;padding:6px 9px;font:600 12px/1 'IBM Plex Sans Condensed',sans-serif;background:{{ draft.pillBg }};color:{{ draft.pillFg }}">{{ draft.status }}</span>
+          </div>
+          <label style="display:flex;flex-direction:column;gap:6px;font:600 11px/1 'IBM Plex Sans Condensed',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#5B554A">Section
+            <select value="{{ draft.cat }}" onChange="{{ setCat }}" style="padding:10px;border:1px solid #16140F;background:#F3EEE4;font:500 15px/1 'IBM Plex Sans Condensed',sans-serif;text-transform:none;letter-spacing:0;color:#16140F">
+              <sc-for list="{{ allCats }}" as="s" hint-placeholder-count="7"><option value="{{ s }}">{{ s }}</option></sc-for>
+            </select>
+          </label>
+          <label style="display:flex;flex-direction:column;gap:6px;font:600 11px/1 'IBM Plex Sans Condensed',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#5B554A">Byline
+            <input value="{{ draft.author }}" onChange="{{ setAuthor }}" style="padding:10px;border:1px solid #16140F;background:#F3EEE4;font:500 15px/1 'IBM Plex Sans Condensed',sans-serif;text-transform:none;letter-spacing:0;color:#16140F">
+          </label>
+          <div style="display:flex;flex-direction:column;gap:6px;font:600 11px/1 'IBM Plex Sans Condensed',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#5B554A">Lead image
+            <div style="aspect-ratio:16/10;border:1px dashed #5B554A;display:flex;align-items:center;justify-content:center;font:500 13px/1 'IBM Plex Sans Condensed',sans-serif;text-transform:none;letter-spacing:0;background:repeating-linear-gradient(135deg,#F3EEE4 0 10px,#EAE3D5 10px 20px)">Drop photo</div>
+          </div>
+          <label style="display:flex;gap:10px;align-items:center;font:500 14px/1.3 'IBM Plex Sans Condensed',sans-serif;cursor:pointer">
+            <input type="checkbox" checked="{{ draft.basket }}" onChange="{{ toggleBasket }}" style="width:18px;height:18px;accent-color:#B8321F">
+            Embed Essentials Index box
+          </label>
+          <div style="font:400 13px/1.4 'IBM Plex Mono',monospace;color:#5B554A;border-top:1px solid #D6CDBC;padding-top:12px">{{ draft.words }} words · ~{{ draft.mins }} min read</div>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ aPrices }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px;margin-bottom:6px">
+        <h1 style="margin:0;font:500 40px/1 'Newsreader',serif">Essentials Index · September</h1>
+        <div style="display:flex;align-items:baseline;gap:10px"><span style="font:600 11px/1 'IBM Plex Sans Condensed',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#5B554A">Index</span><span style="font:500 34px/1 'Newsreader',serif">{{ idx.value }}</span><span style="font:500 14px/1 'IBM Plex Mono',monospace;color:#B8321F">{{ idx.chg12 }}</span></div>
+      </div>
+      <p style="margin:0 0 20px;font:400 17px/1.45 'Newsreader',serif;color:#3A362E;max-width:640px">Enter this month's median price for each item. Rankings, the index headline and every embedded box update live.</p>
+      <div style="border:1px solid #16140F;background:#FBF8F2;overflow-x:auto">
+        <div style="min-width:760px">
+          <div style="display:grid;grid-template-columns:2fr 1fr .8fr 1fr 1fr .8fr 1fr;gap:14px;padding:12px 18px;border-bottom:1px solid #16140F;font:600 11px/1 'IBM Plex Sans Condensed',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#5B554A">
+            <span>Item</span><span>Category</span><span>Weight</span><span style="text-align:right">Aug 2026</span><span style="text-align:right">Sep 2026</span><span style="text-align:right">12 mo</span><span>Trend</span>
+          </div>
+          <sc-for list="{{ basket }}" as="b" hint-placeholder-count="13">
+            <div style="display:grid;grid-template-columns:2fr 1fr .8fr 1fr 1fr .8fr 1fr;gap:14px;align-items:center;padding:9px 18px;border-bottom:1px solid #D6CDBC">
+              <span style="font:500 17px/1.2 'Newsreader',serif">{{ b.name }} <span style="font-size:13px;color:#5B554A">/ {{ b.unit }}</span></span>
+              <span style="font:500 13px/1 'IBM Plex Sans Condensed',sans-serif;color:#5B554A">{{ b.cat }}</span>
+              <span style="font:400 13px/1 'IBM Plex Mono',monospace;color:#5B554A">{{ b.weightF }}</span>
+              <span style="text-align:right;font:400 14px/1 'IBM Plex Mono',monospace;color:#5B554A">{{ b.prevF }}</span>
+              <input type="number" value="{{ b.now }}" onChange="{{ b.onNow }}" style="text-align:right;padding:8px;border:1px solid #16140F;background:#F3EEE4;font:500 14px/1 'IBM Plex Mono',monospace;width:100%">
+              <span style="text-align:right;font:500 14px/1 'IBM Plex Mono',monospace;color:{{ b.chgColor }}">{{ b.chg }}</span>
+              <svg viewBox="0 0 100 30" preserveAspectRatio="none" style="width:100%;height:24px;display:block"><polyline points="{{ b.spark }}" fill="none" stroke="{{ b.chgColor }}" style="stroke-width:1.5;vector-effect:non-scaling-stroke"></polyline></svg>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+      <div style="display:flex;gap:10px;margin-top:16px;align-items:center;flex-wrap:wrap">
+        <button onClick="{{ goIndex }}" style="border:0;background:#B8321F;color:#fff;padding:12px 16px;font:600 13px/1 'IBM Plex Sans Condensed',sans-serif;text-transform:uppercase;letter-spacing:.06em;cursor:pointer" style-hover="background:#9C2716">Publish &amp; view index</button>
+        <span style="font:400 13px/1 'IBM Plex Mono',monospace;color:#5B554A">Median of 3 quotes · Kimironko, Nyabugogo, Kicukiro</span>
+      </div>
+    </sc-if>
+  </main>
+</div>
+</sc-if>
+
+<div style="position:fixed;left:50%;bottom:18px;transform:translateX(-50%);display:flex;background:#16140F;padding:4px;box-shadow:0 6px 20px rgba(0,0,0,.25);z-index:50;font:600 13px/1 'IBM Plex Sans Condensed',sans-serif;letter-spacing:.05em;text-transform:uppercase">
+  <span onClick="{{ goSite }}" style="cursor:pointer;padding:10px 14px;background:{{ swSiteBg }};color:{{ swSiteFg }}">Reader site</span>
+  <span onClick="{{ goAdmin }}" style="cursor:pointer;padding:10px 14px;background:{{ swAdminBg }};color:{{ swAdminFg }}">Admin portal</span>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  sections = ['Cost of living', 'Jobs', 'Agriculture', 'Health', 'Transport', 'Policy'];
+  mk(id, name, unit, cat, w, then, now, source, note) {
+    const hist = [];
+    for (let i = 0; i < 12; i++) {
+      const t = i / 12, wob = Math.sin(i * 1.7 + id.length) * 0.035 * then;
+      hist.push(Math.round((then + (now - then) * Math.pow(t, 1.3) + (i ? wob : 0)) / 10) * 10);
+    }
+    return { id, name, unit, cat, w, hist, now, source, note };
+  }
+  state = {
+    view: 'site', page: 'home', tab: 'dash', articleId: 1, filter: 'All', draft: null, savedMsg: '',
+    openRow: 'beans', idxCat: 'All', sort: 'rise',
+    prices: [
+      this.mk('beans', 'Beans', 'kg', 'Food', .12, 900, 1300, 'Kimironko, Nyabugogo', 'The protein of most Rwandan kitchens. Two weak seasons and higher transport costs pushed beans to the top of the ranking.'),
+      this.mk('tom', 'Tomatoes', 'kg', 'Food', .05, 600, 850, 'Kimironko, Kicukiro', 'Among the vegetables most affected by farming moving out of city wetlands; now trucked in from further away.'),
+      this.mk('milk', 'Milk', 'litre', 'Food', .07, 500, 700, 'Kiosks, Kicukiro & Remera', 'Fresh milk from kiosks. Feed prices and dry-season supply drove most of the increase.'),
+      this.mk('pot', 'Irish potatoes', 'kg', 'Food', .07, 450, 600, 'Nyabugogo', 'Staple from the north. Transport fares feed directly into the city price.'),
+      this.mk('flour', 'Maize flour', 'kg', 'Food', .08, 800, 1050, 'Kimironko', 'Kawunga for ugali. Tracks regional maize prices closely.'),
+      this.mk('rice', 'Rice', 'kg', 'Food', .08, 1400, 1750, 'Nyabugogo', 'Local and imported mixed. Exchange rate weakness adds to imported grades.'),
+      this.mk('oil', 'Cooking oil', 'litre', 'Food', .05, 3200, 3900, 'Supermarkets & kiosks', 'Mostly imported, so moves with the franc and global vegetable-oil prices.'),
+      this.mk('sugar', 'Sugar', 'kg', 'Food', .04, 1500, 1700, 'Kiosks', 'Relatively stable this year after sharp rises in 2023.'),
+      this.mk('char', 'Charcoal', 'sack', 'Energy', .08, 18000, 22000, 'Nyabugogo depots', 'Still the main cooking fuel for many city households despite the gas push.'),
+      this.mk('moto', 'Moto fare', '5 km', 'Transport', .10, 800, 1000, 'Remera – Town route', 'The young worker\u2019s commute. Fuel costs and metered pricing both played a part.'),
+      this.mk('bus', 'Bus fare', 'city trip', 'Transport', .06, 307, 350, 'RURA published fares', 'Regulated fare, adjusted once this year after the fuel subsidy ended.'),
+      this.mk('clinic', 'Clinic visit', 'private', 'Health', .08, 10000, 12000, 'Three Kigali clinics', 'Consultation fee without insurance, the price many young people pay out of pocket.'),
+      this.mk('rent', 'Room rent', 'month', 'Housing', .12, 60000, 70000, 'Kimironko, Gikondo listings', 'A single room in a shared compound — the first home for many graduates.')
+    ],
+    posts: [
+      { id: 1, cat: 'Agriculture', status: 'Published', views: 4812, date: 'Sep 28, 2026', author: 'Ubukungu Talks',
+        title: "Rwanda's wetlands: the parks are beautiful, but what is the price of the food we lose?",
+        dek: "Clearing farms from Kigali's marshes gave the city green space. It also moved vegetables further from the people who eat them.", basket: true,
+        body: [
+          "Walk through one of Kigali's restored wetlands on a Sunday and it is hard to argue with the result. Boardwalks, birdsong, young couples taking photographs where, a few years ago, there were rows of sweet potato, amaranth and cabbage.",
+          "Those rows fed people. Marshland plots close to the city were among the cheapest sources of fresh vegetables for nearby households, and a steady income for the farmers — many of them women — who worked them.",
+          "When farming moved out, the produce did not stop being eaten. It started travelling further, through more hands. Each extra kilometre and each extra trader is a small addition to the price at the market stall.",
+          "None of this means the wetlands should have stayed farms. Flood control and biodiversity are real public goods. But a policy is only honest if it counts all its costs, and one of the costs here lands on the plate.",
+          "The question we put to readers is simple: when a city gets more beautiful, who pays, and are they the same people who get to enjoy it?"
+        ] },
+      { id: 2, cat: 'Cost of living', status: 'Published', views: 3920, date: 'Sep 21, 2026', author: 'Ubukungu Talks', title: 'A litre of milk, then and now', dek: 'Why the most ordinary item in a Kigali kitchen became a monthly calculation.', body: ['Story body.'] },
+      { id: 3, cat: 'Jobs', status: 'Published', views: 3310, date: 'Sep 14, 2026', author: 'Ubukungu Talks', title: 'Graduates, waiting: the long queue between a degree and a first salary', dek: 'Youth unemployment is a statistic until it is your cousin, three years on, still applying.', body: ['Story body.'] },
+      { id: 4, cat: 'Transport', status: 'Published', views: 2140, date: 'Sep 07, 2026', author: 'Ubukungu Talks', title: 'The moto maths: what a commute really costs a young worker', dek: 'Add up a month of fares against an entry-level wage and the numbers stop working.', body: ['Story body.'] },
+      { id: 5, cat: 'Health', status: 'Published', views: 1875, date: 'Aug 31, 2026', author: 'Ubukungu Talks', title: 'Mutuelle covers the visit. Who covers the prescription?', dek: 'Community health insurance opened the clinic door. The pharmacy counter is another matter.', body: ['Story body.'] },
+      { id: 6, cat: 'Policy', status: 'Published', views: 1560, date: 'Aug 24, 2026', author: 'Ubukungu Talks', title: 'Growth on paper: reading the GDP figures against the market basket', dek: "A plain-language guide to why a fast-growing economy can still feel like it's shrinking.", body: ['Story body.'] },
+      { id: 7, cat: 'Opinion', status: 'Published', views: 1420, date: 'Aug 20, 2026', author: 'Guest writer', title: 'Stop telling young people to “just start a business”', dek: '', body: ['Story body.'] },
+      { id: 8, cat: 'Opinion', status: 'Published', views: 1210, date: 'Aug 16, 2026', author: 'Editorial board', title: 'A price index for people, not for planners', dek: '', body: ['Story body.'] },
+      { id: 9, cat: 'Opinion', status: 'Published', views: 980, date: 'Aug 11, 2026', author: 'Reader letter', title: 'I earn more than my parents did. I can afford less.', dek: '', body: ['Story body.'] },
+      { id: 10, cat: 'Cost of living', status: 'Published', views: 1340, date: 'Aug 09, 2026', author: 'Ubukungu Talks', title: 'Rent in Kimironko: a room, a shared tap, and a third of your pay', dek: 'What a first home costs a graduate in Kigali.', body: ['Story body.'] },
+      { id: 11, cat: 'Cost of living', status: 'Published', views: 1190, date: 'Aug 02, 2026', author: 'Ubukungu Talks', title: 'Charcoal or gas? The kitchen maths behind a policy push', dek: 'Cleaner cooking is cheaper over a year — if you can afford the cylinder.', body: ['Story body.'] },
+      { id: 12, cat: 'Jobs', status: 'Published', views: 1080, date: 'Jul 27, 2026', author: 'Ubukungu Talks', title: 'Casual work, permanent worry: life on day contracts', dek: 'Construction sites keep Kigali growing and their workers guessing.', body: ['Story body.'] },
+      { id: 13, cat: 'Jobs', status: 'Published', views: 940, date: 'Jul 20, 2026', author: 'Ubukungu Talks', title: 'The internship that never becomes a job', dek: 'Unpaid placements have become a rite of passage. Few lead anywhere.', body: ['Story body.'] },
+      { id: 14, cat: 'Agriculture', status: 'Published', views: 1020, date: 'Jul 13, 2026', author: 'Ubukungu Talks', title: 'In the hills, the harvest pays less than it did', dek: 'Rural incomes and the widening gap with Kigali.', body: ['Story body.'] },
+      { id: 15, cat: 'Agriculture', status: 'Published', views: 870, date: 'Jul 06, 2026', author: 'Ubukungu Talks', title: 'Why a farmer in Musanze sells low and buys high', dek: 'Harvest-time gluts and lean-season shortages, explained.', body: ['Story body.'] },
+      { id: 16, cat: 'Agriculture', status: 'Published', views: 760, date: 'Jun 29, 2026', author: 'Ubukungu Talks', title: 'Land consolidation, ten years on', dek: 'Higher yields on paper. Mixed fortunes on the ground.', body: ['Story body.'] },
+      { id: 17, cat: 'Cost of living', status: 'Draft', views: 0, date: '—', author: 'Ubukungu Talks', title: 'Back-to-school: the uniform, the fees, the bus', dek: '', body: [''] },
+      { id: 18, cat: 'Cost of living', status: 'In review', views: 0, date: '—', author: 'Ubukungu Talks', title: 'Essentials Index, September: beans lead the climb', dek: 'Our monthly price survey.', body: [''] }
+    ]
+  };
+  pill(s) { return s === 'Published' ? ['#DDE7DA', '#1F4128'] : s === 'Draft' ? ['#E9E2D3', '#3A362E'] : ['#F3D9CF', '#7A1F12']; }
+  edit(id) {
+    const p = this.state.posts.find(x => x.id === id);
+    this.setState({ view: 'admin', tab: 'editor', savedMsg: '', draft: { ...p, bodyText: p.body.join('\n\n') } });
+  }
+  newPost() {
+    const id = Math.max(...this.state.posts.map(p => p.id)) + 1;
+    const d = { id, cat: 'Cost of living', status: 'Draft', views: 0, date: '—', author: 'Ubukungu Talks', title: '', dek: '', body: [''], bodyText: '', basket: false };
+    this.setState(s => ({ posts: [d, ...s.posts], tab: 'editor', draft: d, savedMsg: '' }));
+  }
+  commit(extra) {
+    const d = { ...this.state.draft, ...extra };
+    d.body = d.bodyText.split(/\n\s*\n/).map(t => t.trim()).filter(Boolean);
+    if (!d.body.length) d.body = [''];
+    this.setState(s => ({ draft: d, posts: s.posts.map(p => p.id === d.id ? d : p), savedMsg: extra.status === 'Published' ? 'Published' : 'Saved' }));
+    return d;
+  }
+  setD(k) { return e => { const v = e.target.type === 'checkbox' ? e.target.checked : e.target.value; this.setState(s => ({ draft: { ...s.draft, [k]: v }, savedMsg: '' })); }; }
+  spark(series) {
+    const min = Math.min(...series), max = Math.max(...series), r = max - min || 1;
+    return series.map((v, i) => (i / (series.length - 1) * 100).toFixed(1) + ',' + (28 - (v - min) / r * 26).toFixed(1)).join(' ');
+  }
+  renderVals() {
+    const s = this.state;
+    const fmt = n => Math.round(n).toLocaleString('en-US');
+    const pct = x => (x > 0 ? '+' : '') + x.toFixed(1) + '%';
+    const top = () => window.scrollTo(0, 0);
+    const open = id => () => { this.setState({ view: 'site', page: 'article', articleId: id }); top(); };
+    const posts = s.posts.map(p => {
+      const [pillBg, pillFg] = this.pill(p.status);
+      return { ...p, pillBg, pillFg, viewsN: p.views, views: p.views ? fmt(p.views) : '—', title: p.title || 'Untitled story', read: Math.max(3, Math.round(p.body.join(' ').split(/\s+/).length / 200) + 3) + ' min', p1: p.body[0], p2: p.body[1] || '', open: open(p.id), edit: () => this.edit(p.id) };
+    });
+    const pub = posts.filter(p => p.status === 'Published');
+    const byCat = c => pub.filter(p => p.cat === c);
+    const lead = pub[0];
+
+    const basket = s.prices.map(b => {
+      const now = Number(b.now) || 0, series = [...b.hist, now], then = b.hist[0], prev = b.hist[11];
+      const ch = (now - then) / then * 100, c1 = (now - prev) / prev * 100;
+      return { ...b, series, ch, c1, nowF: fmt(now), thenF: fmt(then), prevF: fmt(prev), minF: fmt(Math.min(...series)), maxF: fmt(Math.max(...series)),
+        chg: pct(ch), chg1: pct(c1), chgColor: ch > 0 ? '#B8321F' : '#2F5D3A', c1Color: c1 > 0 ? '#B8321F' : '#2F5D3A', weightF: Math.round(b.w * 100) + '%',
+        spark: this.spark(series), isOpen: s.openRow === b.id,
+        toggle: () => this.setState(st => ({ openRow: st.openRow === b.id ? null : b.id })),
+        onNow: e => { const v = Number(e.target.value); this.setState(st => ({ prices: st.prices.map(x => x.id === b.id ? { ...x, now: v } : x) })); } };
+    });
+    const wsum = basket.reduce((a, b) => a + b.w, 0);
+    const idxSeries = basket[0].series.map((_, i) => basket.reduce((a, b) => a + b.w * b.series[i] / b.series[0], 0) / wsum * 100);
+    const iv = idxSeries[12];
+    const idx = { value: iv.toFixed(1), chg12: pct(iv - 100), chg1: pct((iv - idxSeries[11]) / idxSeries[11] * 100), spark: this.spark(idxSeries) };
+
+    const cats = ['All', 'Food', 'Energy', 'Transport', 'Health', 'Housing'];
+    const catSummary = cats.filter(c => c !== 'Energy' && c !== 'Housing' || true).map(c => {
+      const items = c === 'All' ? basket : basket.filter(b => b.cat === c);
+      const ws = items.reduce((a, b) => a + b.w, 0);
+      const ch = items.reduce((a, b) => a + b.w * b.ch, 0) / ws;
+      return { label: c === 'All' ? 'All essentials' : c, chg: pct(ch), n: items.length, bg: s.idxCat === c ? '#EAE3D5' : 'transparent', go: () => this.setState({ idxCat: c }) };
+    });
+    let rows = basket.filter(b => s.idxCat === 'All' || b.cat === s.idxCat);
+    const sorters = { rise: (a, b) => b.ch - a.ch, month: (a, b) => b.c1 - a.c1, weight: (a, b) => b.w - a.w };
+    rows = [...rows].sort(sorters[s.sort]).map((b, i) => ({ ...b, rank: i + 1 }));
+    const sorts = [['rise', '12-mo rise'], ['month', 'This month'], ['weight', 'Budget weight']].map(([k, label]) => ({ label, bg: s.sort === k ? '#16140F' : 'transparent', fg: s.sort === k ? '#F3EEE4' : '#16140F', go: () => this.setState({ sort: k }) }));
+
+    const article = posts.find(p => p.id === s.articleId) || lead;
+    const tabs = [['dash', 'Dashboard'], ['posts', 'Stories'], ['editor', 'Editor'], ['prices', 'Essentials Index']];
+    const d = s.draft;
+    let draft = {};
+    if (d) {
+      const [pillBg, pillFg] = this.pill(d.status);
+      const words = d.bodyText.trim() ? d.bodyText.trim().split(/\s+/).length : 0;
+      draft = { ...d, pillBg, pillFg, words, mins: Math.max(1, Math.round(words / 200)) };
+    }
+    const filters = ['All', 'Published', 'In review', 'Draft'].map(f => ({ label: f, n: f === 'All' ? posts.length : posts.filter(p => p.status === f).length, bg: s.filter === f ? '#16140F' : 'transparent', fg: s.filter === f ? '#F3EEE4' : '#16140F', go: () => this.setState({ filter: f }) }));
+    const site = s.view === 'site';
+    return {
+      sections: this.sections, allCats: [...this.sections, 'Opinion'],
+      isSite: site, isAdmin: !site, isHome: s.page === 'home', isArticle: s.page === 'article', isIndex: s.page === 'index',
+      aDash: s.tab === 'dash', aPosts: s.tab === 'posts', aEditor: s.tab === 'editor' && !!d, aPrices: s.tab === 'prices',
+      lead, leftCol: [posts[1], posts[2], posts[3]].filter(p => p.status === 'Published'), opinion: byCat('Opinion').slice(0, 3),
+      colRow: byCat('Cost of living').concat(byCat('Health')).slice(0, 4), jobs: byCat('Jobs').slice(0, 3), rural: byCat('Agriculture').slice(0, 3),
+      indexStories: [posts[0], posts[1], posts[5]],
+      related: pub.filter(p => p.id !== article.id && p.cat !== 'Opinion').slice(0, 3),
+      article, basket, idx, catSummary, rows, sorts, rowCount: rows.length + ' items', catLabel: s.idxCat === 'All' ? 'All categories' : s.idxCat,
+      topRisers: [...basket].sort((a, b) => b.ch - a.ch).slice(0, 3),
+      adminNav: tabs.map(([k, label]) => ({ label, bg: s.tab === k ? '#B8321F' : 'transparent', go: () => k === 'editor' && !d ? this.edit(posts[0].id) : this.setState({ tab: k }) })),
+      kpis: [
+        { label: 'Readers · 30 days', value: '18,420', delta: '▲ 22% vs August' },
+        { label: 'Index page views', value: '6,105', delta: '▲ new this month' },
+        { label: 'Coffee supporters', value: '214', delta: '▲ 31 new' },
+        { label: 'Friday brief subs', value: '2,960', delta: '▲ 180' }
+      ],
+      topRead: [...pub].sort((a, b) => b.viewsN - a.viewsN).slice(0, 5).map((p, i) => ({ ...p, rank: String(i + 1).padStart(2, '0') })),
+      todo: posts.filter(p => p.status !== 'Published'),
+      filters, postRows: posts.filter(p => s.filter === 'All' || p.status === s.filter),
+      draft, savedMsg: s.savedMsg, publishLabel: d && d.status === 'Published' ? 'Update' : 'Publish',
+      setTitle: this.setD('title'), setDek: this.setD('dek'), setBody: this.setD('bodyText'), setCat: this.setD('cat'), setAuthor: this.setD('author'), toggleBasket: this.setD('basket'),
+      saveDraft: () => this.commit({}),
+      publish: () => this.commit({ status: 'Published', date: d.date === '—' ? 'Sep 30, 2026' : d.date }),
+      preview: () => { const x = this.commit({}); this.setState({ view: 'site', page: 'article', articleId: x.id }); top(); },
+      newPost: () => this.newPost(),
+      goHome: () => { this.setState({ view: 'site', page: 'home' }); top(); },
+      goIndex: () => { this.setState({ view: 'site', page: 'index' }); top(); },
+      goSite: () => { this.setState({ view: 'site', page: 'home' }); top(); },
+      goAdmin: () => this.setState({ view: 'admin' }),
+      goPosts: () => this.setState({ tab: 'posts' }),
+      goPrices: () => this.setState({ tab: 'prices' }),
+      swSiteBg: site ? '#F3EEE4' : 'transparent', swSiteFg: site ? '#16140F' : '#F3EEE4',
+      swAdminBg: site ? 'transparent' : '#F3EEE4', swAdminFg: site ? '#F3EEE4' : '#16140F'
+    };
+  }
+}
+</script>
+</body>
+</html>
