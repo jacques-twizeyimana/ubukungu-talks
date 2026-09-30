@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Claude Design handoff bundle (prototype runtime, not app code).
+    "ubukungu-talks-website-design/**",
   ]),
 ]);
 
